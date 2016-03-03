@@ -1,19 +1,21 @@
 package task2;
 
+import task1.FileControl;
+
 //import java.util.Random;
 
-public class WriterThread extends Thread{
+public class ReaderThread extends Thread{
 	
 	private FileControl fc = new FileControl();
 	
 	public void run(){
-		for(int i = 0; i < 3; i++){ // TODO revert to 1000
+		for(int i = 0; i < 3; i++){// TODO revert to 1000
 			try{
-				fc.writerEntry();
+				fc.readerEntry();
 			}catch(InterruptedException e){System.err.println(e);}
 			
-			/*-------------<<<WRITING>>>---------*/
-			System.out.println("Writer thread "+Thread.currentThread().getId()+": writing...        "+fc.printInfo());
+			/*-------------<<<READING>>>---------*/
+			System.out.println("Reader thread "+Thread.currentThread().getId()+": reading...        "+fc.printInfo());
 			/*for (int j = 0; j<100; j++){
 				Random r = new Random();
 				int k = r.nextInt();
@@ -24,7 +26,7 @@ public class WriterThread extends Thread{
 				System.err.println(e);
 			}
 			try{
-				fc.writerExit();
+				fc.readerExit();
 			}catch(InterruptedException e){System.err.println(e);}
 		}
 	}

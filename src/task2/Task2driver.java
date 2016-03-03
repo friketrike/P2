@@ -1,5 +1,8 @@
 package task2;
 
+import task1.ReaderThread;
+import task1.WriterThread;
+
 public class Task2driver {
 
 	public static void main(String[] args) {
