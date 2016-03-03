@@ -1,7 +1,5 @@
 package task2;
 
-import task1.FileControl;
-
 //import java.util.Random;
 
 public class ReaderThread extends Thread{

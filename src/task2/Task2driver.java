@@ -1,14 +1,12 @@
 package task2;
 
-import task1.ReaderThread;
-import task1.WriterThread;
-
 public class Task2driver {
 
 	public static void main(String[] args) {
 		final int numThreads = 10;
 		ReaderThread[] rts = new ReaderThread[numThreads];
 		WriterThread[] wts = new WriterThread[numThreads];
+		System.out.println("starting...");
 		for (int i = 0; i < numThreads; i++){
 			rts[i] = new ReaderThread();
 			wts[i] = new WriterThread();

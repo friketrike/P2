@@ -1,7 +1,5 @@
 package task1;
 
-//import java.util.Random;
-
 public class WriterThread extends Thread{
 	
 	private FileControl fc = new FileControl();
