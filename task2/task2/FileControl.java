@@ -15,7 +15,7 @@ public class FileControl{
 			//mutex.notifyAll();
 			if( (readerWaitingList > writerWaitingList) && (readerCount > writerWaitingList) ||
 					isWriting || (readerCount > 0) ){
-				System.out.println("Writer thread "+tId+": waiting to write, rw:"+readerWaitingList+" rr:"+readerCount+" ww:"+writerWaitingList+" isWriting:"+isWriting);
+				System.out.println("Writer thread "+tId+": waiting to write, "+printInfo());
 				System.out.flush();
 			}
 			while( (readerWaitingList > writerWaitingList) && (readerCount > writerWaitingList) ||
@@ -26,7 +26,7 @@ public class FileControl{
 			isWriting = true;
 			writerWaitingList--;
 			mutex.notifyAll();
-			System.out.println("Writer thread "+tId+": ready to write, rw:"+readerWaitingList+" rr:"+readerCount+" ww:"+writerWaitingList+" isWriting:"+isWriting);
+			System.out.println("Writer thread "+tId+": ready to write,   "+printInfo());
 			System.out.flush();	
 		}
 	}
@@ -35,7 +35,7 @@ public class FileControl{
 		synchronized(mutex){
 			isWriting = false;
 			mutex.notifyAll();
-			System.out.println("Writer thread "+tId+": finished writing, rw:"+readerWaitingList+" rr:"+readerCount+" ww:"+writerWaitingList+" isWriting:"+isWriting);
+			System.out.println("Writer thread "+tId+": finished writing, "+printInfo());
 			System.out.flush();			
 		}
 	}
@@ -46,7 +46,7 @@ public class FileControl{
 			mutex.notifyAll();
 			if( ((writerWaitingList > 0) && (writerWaitingList >= readerCount) ) || 
 					(writerWaitingList >= readerWaitingList) || isWriting) {
-				System.out.println("Reader thread "+tId+": waiting to read, rw:"+readerWaitingList+" rr:"+readerCount+" ww:"+writerWaitingList+" isWriting:"+isWriting);
+				System.out.println("Reader thread "+tId+": waiting to read,  "+printInfo());
 				System.out.flush();
 			}
 			while( ((writerWaitingList > 0) && (writerWaitingList >= readerCount) ) || 
@@ -58,7 +58,7 @@ public class FileControl{
 			readerCount++;
 			mutex.notifyAll(); // unlimited readers...
 			//isReading = true;
-			System.out.println("Reader thread "+tId+": ready to read, rw:"+readerWaitingList+" rr:"+readerCount+" ww:"+writerWaitingList+" isWriting:"+isWriting);
+			System.out.println("Reader thread "+tId+": ready to read,    "+printInfo());
 			System.out.flush();
 		}
 	}
@@ -69,9 +69,13 @@ public class FileControl{
 			mutex.notifyAll();
 			//if(readerCount == 0)
 			//	isReading = false;
-			System.out.println("Reader thread "+tId+": finished reading, rw:"+readerWaitingList+" rr:"+readerCount+" ww:"+writerWaitingList+" isWriting:"+isWriting);
+			System.out.println("Reader thread "+tId+": finished reading, "+printInfo());
 			System.out.flush();
 			
 		}
+	}
+	
+	public String printInfo(){
+		return String.format("rw:%2d rr:%2d ww:%2d isWriting:%b", readerWaitingList, readerCount, writerWaitingList, isWriting);
 	}
 }

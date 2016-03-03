@@ -13,7 +13,7 @@ public class ReaderThread extends Thread{
 			}catch(InterruptedException e){System.err.println(e);}
 			
 			/*-------------<<<READING>>>---------*/
-			System.out.println(Thread.currentThread().getId()+" is reading...");
+			System.out.println("Reader thread "+Thread.currentThread().getId()+": reading...        "+fc.printInfo());
 			/*for (int j = 0; j<100; j++){
 				Random r = new Random();
 				int k = r.nextInt();
