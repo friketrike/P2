@@ -1,7 +1,5 @@
 package task2;
 
-//import java.util.Random;
-
 public class ReaderThread extends Thread{
 	
 	private FileControl fc = new FileControl();
@@ -14,10 +12,7 @@ public class ReaderThread extends Thread{
 			
 			/*-------------<<<READING>>>---------*/
 			System.out.println("Reader thread "+Thread.currentThread().getId()+": reading...        "+fc.printInfo());
-			/*for (int j = 0; j<100; j++){
-				Random r = new Random();
-				int k = r.nextInt();
-			}*/
+			
 			try{
 				sleep(50);
 			}catch(InterruptedException e){

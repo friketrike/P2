@@ -12,10 +12,7 @@ public class WriterThread extends Thread{
 			
 			/*-------------<<<WRITING>>>---------*/
 			System.out.println("Writer thread "+Thread.currentThread().getId()+": writing...        "+fc.printInfo());
-			/*for (int j = 0; j<100; j++){
-				Random r = new Random();
-				int k = r.nextInt();
-			}*/
+			
 			try{
 				sleep(50);
 			}catch(InterruptedException e){
