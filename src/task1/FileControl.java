@@ -13,7 +13,7 @@ public class FileControl{
 			System.out.println("Writer thread "+tId+": waiting to write, "+printInfo());
 			System.out.flush();
 			while(isWriting || readerCount > 0){
-				mutex.notifyAll();
+				//mutex.notifyAll();
 				mutex.wait();
 			}
 			isWriting = true;
@@ -37,7 +37,7 @@ public class FileControl{
 			System.out.println("Reader thread "+tId+": waiting to read,  "+printInfo());
 			System.out.flush();
 			while(writerCount > 0) {
-				mutex.notifyAll();//maybe a writer can go...
+				//mutex.notifyAll();//maybe a writer can go...
 				mutex.wait();
 			}
 			readerCount++;
