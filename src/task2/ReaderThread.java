@@ -1,6 +1,7 @@
 package task2;
 
 import java.io.RandomAccessFile;
+
 import java.io.IOException;
 
 public class ReaderThread extends Thread{
@@ -20,7 +21,8 @@ public class ReaderThread extends Thread{
 			}catch(InterruptedException e){System.err.println(e);}
 			
 			/*-------------<<<READING>>>---------*/
-			System.out.println("Reader thread "+Thread.currentThread().getId()+": reading...        "+fc.printInfo());
+			if(FileControl.showDebugInfo)
+				System.out.println(Thread.currentThread().getName()+": reading...        "+fc.printInfo());
 			readOneAlphabet();
 
 			try{
@@ -41,7 +43,8 @@ public class ReaderThread extends Thread{
 			System.err.println(e);
 		}
 		if(status != -1){
-			System.out.println(new String(alphabet)); 
+			if(FileControl.showDebugInfo)
+				System.out.println(new String(alphabet)); 
 			readIndex += ALPHABET_LENGTH;
 		}
     }

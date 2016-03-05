@@ -5,58 +5,64 @@ public class FileControl{
 	private static int readerCount = 0;
 	private static boolean isWriting = false;
 	private static Object mutex = new Object();
+	// init showDebugInfo to false to get exactly what the assignment sheet asks for 
+	protected static boolean showDebugInfo = true; 
 		
 	public void writerEntry() throws InterruptedException{
-		long tId = Thread.currentThread().getId();
+		String tName = Thread.currentThread().getName();
 		synchronized(mutex){
 			writerCount++;
-			System.out.println("Writer thread "+tId+": waiting to write, "+printInfo());
-			System.out.flush();
+			if (isWriting || readerCount > 0){
+				System.out.println(tName+": waiting to write, "+printInfo());
+				System.out.flush();
+			}
 			while(isWriting || readerCount > 0){
-				//mutex.notifyAll();
 				mutex.wait();
 			}
 			isWriting = true;
-			System.out.println("Writer thread "+tId+": ready to write,   "+printInfo());
+			System.out.println(tName+": ready to write,   "+printInfo());
 			System.out.flush();	
 		}
 	}
 	public void writerExit()throws InterruptedException{
-		long tId = Thread.currentThread().getId();
+		String tName = Thread.currentThread().getName();
 		synchronized(mutex){
 			writerCount--;
 			isWriting = false;
-			System.out.println("Writer thread "+tId+": finished writing, "+printInfo());
+			System.out.println(tName+": finished writing, "+printInfo());
 			System.out.flush();
 			mutex.notifyAll();
 		}
 	}
 	public void readerEntry()throws InterruptedException{
-		long tId = Thread.currentThread().getId();
+		String tName = Thread.currentThread().getName();
 		synchronized(mutex){
-			System.out.println("Reader thread "+tId+": waiting to read,  "+printInfo());
-			System.out.flush();
+			if (writerCount > 0) {
+				System.out.println(tName+": waiting to read,  "+printInfo());
+				System.out.flush();
+			}
 			while(writerCount > 0) {
-				//mutex.notifyAll();//maybe a writer can go...
 				mutex.wait();
 			}
 			readerCount++;
-			System.out.println("Reader thread "+tId+": ready to read,    "+printInfo());
+			System.out.println(tName+": ready to read,    "+printInfo());
 			System.out.flush();
-			mutex.notifyAll(); // unlimited readers...
+			mutex.notifyAll(); // unlimited readers, they'll check their conditions...
 		}
 	}
 	public void readerExit()throws InterruptedException{
-		long tId = Thread.currentThread().getId();
+		String tName = Thread.currentThread().getName();
 		synchronized(mutex){
 			readerCount--;
-			System.out.println("Reader thread "+tId+": finished reading, "+printInfo());
+			System.out.println(tName+": finished reading, "+printInfo());
 			System.out.flush();
 			mutex.notifyAll();
 		}
 	}
 	
 	public String printInfo(){
+		if(!showDebugInfo) 
+			return("");
 		return String.format("rr:%2d ww:%2d isWriting:%b", readerCount, writerCount, isWriting);
 	}
 }

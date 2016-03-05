@@ -1,6 +1,7 @@
 package task1;
 
 import java.io.RandomAccessFile;
+
 import java.io.IOException;
 
 public class WriterThread extends Thread{
@@ -20,7 +21,8 @@ public class WriterThread extends Thread{
 			}catch(InterruptedException e){System.err.println(e);}
 			
 			/*-------------<<<WRITING>>>---------*/
-			System.out.println("Writer thread "+Thread.currentThread().getId()+": writing...        "+fc.printInfo());
+			if(FileControl.showDebugInfo)
+				System.out.println(Thread.currentThread().getName()+": writing...        "+fc.printInfo());
 			writeOneAlphabet();
 
 			try{
