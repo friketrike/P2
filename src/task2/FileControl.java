@@ -20,7 +20,7 @@ public class FileControl{
 			}
 			while( (readerWaitingList > writerWaitingList) && (readerCount > writerWaitingList) ||
 					isWriting || (readerCount > 0) ){
-				mutex.notifyAll(); // got woken up to go back to waiting, notify someone else...
+				//mutex.notifyAll(); // got woken up to go back to waiting, notify someone else...
 				mutex.wait();
 			}
 			isWriting = true;
@@ -51,7 +51,7 @@ public class FileControl{
 			}
 			while( ((writerWaitingList > 0) && (writerWaitingList >= readerCount) ) || 
 					(writerWaitingList >= readerWaitingList) || isWriting) {
-				mutex.notifyAll(); //maybe a writer can go...
+				//mutex.notifyAll(); //maybe a writer can go...
 				mutex.wait();
 			}
 			readerWaitingList--;
