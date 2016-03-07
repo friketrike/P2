@@ -1,0 +1,15 @@
+ 
+  Comp 5461, winter 2016, Programming assignment 2
+  Federico O'Reilly Regueiro, 40012304
+  Task 3
+ 
+ i) Are deadlock and starvation possible in Task 1?
+ deadlock - no
+ starvation - yes
+ Deadlock is not possible since there is only one resource (the file) for which threads wait and it always becomes available as soon as threads are done with it. Additionally, the lock also becomes available when threads are waiting or are done with the etry or exit routines. That is to say, Java's wait() inside a synchronized(lock) block, releases lock before it blocks.
+ A more detailed explanation of why the waiting threads will always be able to acquire the lock ( and therefore access to the file) at some point: when writer is finished writing or a set of readers are finished reading, there will either be a writer's queue or not. In the former scenario a writer gets to go, and in the latter a reader gets to go.
+ Starvation, on the other hand, is quite possible in Task 1. As long as there are writers waiting to write, readers will just wait. If writers keep queueing up, readers will never read.
+ ii) Are deadlock and starvation possible in Task 2?
+ Deadlock is not possible in Task 2 either. The same arguments as Task 1 apply. Since the conditions for the priorities in Task 2 are more involved, we can think about two criteria: 1-either active readers are more than waiting writers or they're not; 2-either waiting readers are more than waiting writers ore they're not. It is important, however, that the former condition takes precedence over the latter and so there will always be a thread that is able to enter the file.
+ Starvation is also possible here, and now it's possible for both readers and writers. If readers have access to the file and then there's a constant stream of readers and only one writer waiting (supposing active readers never drops down to 1), the waiting writer will starve. Conversely, from the moment when waiting writers are more than active readers, active readers will eventually become 0. Since no new readers are allowed access to the file and the writer's queue won't start to be flushed until active readers are 0, if writer's continue to arrive at the queue, readers will not be able to enter despite the fact that the reader's queue might grow to be very large (yet active readers will continue to be 0).
+ 

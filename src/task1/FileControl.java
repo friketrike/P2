@@ -1,3 +1,16 @@
+/* 
+ * Comp 5461, winter 2016, Programming assignment 2
+ * Federico O'Reilly Regueiro, 40012304
+ * Task 1 - FileControl for, handles priorities for r/w access
+ * I have included some additional info in my printouts which
+ * makes it easier to see how priorities are being handled:
+ * rr stands for readers reading
+ * ww stands for writers waiting and 
+ * isWriting refers to a writer being inside the file
+ * to print out the exact output requested in the assignment,
+ * set showDebugInfo to false
+ */
+
 package task1;
 
 public class FileControl{
@@ -60,6 +73,8 @@ public class FileControl{
 		}
 	}
 	
+	// this helper is already being called from the monitor, 
+	// so we don't use synchronized here
 	public String printInfo(){
 		if(!showDebugInfo) 
 			return("");

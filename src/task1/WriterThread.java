@@ -1,3 +1,9 @@
+/* 
+ * Comp 5461, winter 2016, Programming assignment 2
+ * Federico O'Reilly Regueiro, 40012304
+ * Writer Thread class
+ */
+
 package task1;
 
 import java.io.RandomAccessFile;
@@ -10,7 +16,7 @@ public class WriterThread extends Thread{
 	
 	private static final int ALPHABET_LENGTH = 26;
 	
-	public static int writeIndex = 0;
+	private static int writeIndex = 0;
 
 	private FileControl fc = new FileControl();
 	
